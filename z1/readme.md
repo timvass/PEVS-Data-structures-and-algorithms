@@ -2,7 +2,9 @@ program 1edit.c
 
 # Feladat: soros szerkesztő (kétszeresen láncolt lista)
 
-Programozd le és ellenőrizd az `1edit` nevű soros szerkesztőt, C programnyelven.
+Programozd le és ellenőrizd az `1edit` nevű soros szerkesztőt, C programnyelven. 
+
+Hint: C++-ban is elvégezheto, abban konnyebb a std::list miatt. 2 pointer lesz, egy az előző elemre és egy a következő elemre mutat.
 
 ## Feladatleírás:
 
