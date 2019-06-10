@@ -3,11 +3,13 @@
 #include <iostream>
 #include <fstream>
 #include <string>
+#include <locale>
 using namespace std;
 
-void printStackContent(CharStack stack);
+void printToConsole(CharStack stack);
+void printToFile(CharStack stack);
 void printMenu();
-void saveStringToStacks(CharStack stack1, CharStack stack2, string userInput);
+void saveStringToStacks(CharStack &stack1, CharStack &stack2, string userInput);
 
 int main() {
     int i;
@@ -42,11 +44,13 @@ int main() {
                 break;
 
             case 'd':
-                printStackContent(stack1);
+                printToConsole(stack1);
+                printToFile(stack1);
                 break;
 
             case 'e':
-                printStackContent(stack2);
+                printToConsole(stack2);
+                printToFile(stack1);
                 break;
 
             case 'f':
@@ -86,14 +90,29 @@ void printMenu() {
     cout << "Zadaj volbu, prosim:"<<endl;
 }
 
-void printStackContent(CharStack stack) {
+void printToConsole(CharStack stack) {
     while (!stack.IsEmpty()) {
-        cout << stack.Top()<<endl;
+        cout << stack.Top();
         stack.Pop();
     }
 }
 
-void saveStringToStacks(CharStack stack1,CharStack stack2, string userInput){
+void printToFile(CharStack stack) {
+    fstream file;
+    file.open("vystup.txt", ios::out);
+    if(!file)
+    {
+        cout<<"Error in creating file!!!";
+    }
+
+    while (!stack.IsEmpty()) {
+        file << stack.Top();
+        stack.Pop();
+    }
+    file.close();
+}
+
+void saveStringToStacks(CharStack &stack1,CharStack &stack2, string userInput){
     CharStack helper;
     int i;
     int max = userInput.length();
@@ -109,7 +128,7 @@ void saveStringToStacks(CharStack stack1,CharStack stack2, string userInput){
     }
     while (!helper.IsEmpty())
     {
-        stack2.Push(helper.Top());
+        stack2.Push(tolower(helper.Top()));
         helper.Pop();
     }
 
